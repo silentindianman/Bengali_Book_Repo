@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ideas From Taijasa — Books and Reader</title>
-  <meta name="description" content="A book showcase and e-reader shell for multiple titles, built as a clean author-style website.">
+  <meta name="description" content="A quiet shelf of philosophical and spiritual books, opened into a focused, paginated reader.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body data-theme="light">
@@ -31,79 +31,71 @@
   </header>
 
   <main id="home">
-    <section class="hero-shell">
-      <div class="hero-copy">
-        <p class="eyebrow">A reading space for multiple books</p>
-        <h1>Books first. Reader second.</h1>
-        <p class="hero-lede">A clean author-style homepage for showcasing several books, opening any title into a focused reader, and keeping the shelf easy to scan.</p>
-        <div class="hero-actions">
-          <a class="primary-link" href="#books">Browse books</a>
-          <a class="secondary-link" href="#featured-book">View featured title</a>
-        </div>
-      </div>
 
-      <aside class="hero-panel" id="featured-book">
-        <span class="panel-label">Featured title</span>
-        <div class="featured-book" id="featured-book-card">
-          <!-- Injected dynamically -->
-        </div>
-      </aside>
-    </section>
-
-    <section class="section-shell section-tools">
-      <div class="section-heading">
-        <p class="eyebrow">Browse the shelf</p>
-        <h2>Find a title and open the reader.</h2>
-      </div>
-      <div class="reader-tools">
-        <div class="search-container">
-          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <input type="text" id="search-bar" class="search-input" placeholder="Search books, authors...">
-        </div>
-        <div class="filter-bar" id="genre-filters" aria-label="Book filters">
-          <button class="filter-btn active" data-genre="all">All books</button>
-          <button class="filter-btn" data-genre="fiction">Fiction</button>
-          <button class="filter-btn" data-genre="fantasy">Fantasy</button>
-          <button class="filter-btn" data-genre="philosophy">Philosophy</button>
-        </div>
+    <section class="hero-block">
+      <p class="eyebrow">Ancient words. Living questions.</p>
+      <h1>A quiet shelf of living texts.</h1>
+      <p class="hero-lede">Philosophical and spiritual books, opened into a focused reader. Paginate at your own pace. Save your place. Return when ready.</p>
+      <div class="hero-actions">
+        <a class="primary-link" href="#books">Browse titles</a>
+        <a class="secondary-link" href="#about">About this shelf</a>
       </div>
     </section>
 
     <section class="section-shell" id="books">
       <div class="section-heading">
-        <p class="eyebrow">Books</p>
-        <h2>Available titles</h2>
+        <div>
+          <p class="eyebrow">The Shelf</p>
+          <h2>Available titles</h2>
+        </div>
+        <div class="shelf-controls">
+          <div class="search-container">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="search-bar" class="search-input" placeholder="Search titles, authors…">
+          </div>
+          <div class="filter-bar" id="genre-filters" aria-label="Book filters">
+            <button class="filter-btn active" data-genre="all">All</button>
+            <button class="filter-btn" data-genre="fiction">Fiction</button>
+            <button class="filter-btn" data-genre="fantasy">Fantasy</button>
+            <button class="filter-btn" data-genre="philosophy">Philosophy</button>
+          </div>
+        </div>
       </div>
-      <div class="library-grid" id="library-grid"></div>
+      <div class="book-list" id="library-grid"></div>
     </section>
 
     <section class="section-shell about-shell" id="about">
       <div class="section-heading">
-        <p class="eyebrow">About</p>
-        <h2>A simple home for book discovery and reading.</h2>
+        <div>
+          <p class="eyebrow">About</p>
+          <h2>A home for discovery and deep reading.</h2>
+        </div>
       </div>
-      <div class="about-grid">
-        <p>This layout is meant to feel like a literary author site: spacious, direct, and built around the books themselves. Each title can be browsed from the shelf and then opened into the existing reader overlay.</p>
-        <p>The same shell can hold many books, make a featured title prominent, and keep the experience calm for readers who want to move quickly from discovery to reading.</p>
+      <div class="about-prose">
+        <p>This space is built around the books themselves — unhurried, direct, and suited to readers who move slowly through difficult texts. Each title can be browsed from the shelf and opened into a focused reading environment: paginated, bookmarkable, and adjustable to your preferences for font, size, and light.</p>
+        <p>The same shell can hold many books, give a chosen title prominence, and keep the experience quiet for readers who want to move without distraction from discovery to the page.</p>
       </div>
     </section>
 
     <section class="section-shell contact-shell" id="contact">
       <div class="section-heading">
-        <p class="eyebrow">Contact</p>
-        <h2>Keep this area for updates, links, or a newsletter.</h2>
-      </div>
-      <div class="contact-grid">
         <div>
-          <span class="contact-label">Website</span>
-          <strong>ideasfromtaijasa.com</strong>
-        </div>
-        <div>
-          <span class="contact-label">Reading mode</span>
-          <strong>Fullscreen, paginated, bookmarkable</strong>
+          <p class="eyebrow">Contact</p>
+          <h2>Find the work. Follow the reading.</h2>
         </div>
       </div>
+      <dl class="contact-list">
+        <div class="contact-item">
+          <dt>Website</dt>
+          <dd>ideasfromtaijasa.com</dd>
+        </div>
+        <div class="contact-item">
+          <dt>Reading mode</dt>
+          <dd>Fullscreen · Paginated · Bookmarkable</dd>
+        </div>
+      </dl>
     </section>
+
   </main>
 
   <div class="reader-overlay" id="reader-view">
@@ -183,7 +175,7 @@
       <div class="setting-group">
         <span class="setting-label">Font Size</span>
         <div class="setting-options">
-          <button class="btn-option" id="font-dec-btn">A-</button>
+          <button class="btn-option" id="font-dec-btn">A−</button>
           <button class="btn-option" id="font-inc-btn">A+</button>
           <span id="font-size-label" class="font-size-label">Medium</span>
         </div>

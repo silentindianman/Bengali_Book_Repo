@@ -198,101 +198,51 @@ function updateDrawerSettingsUI() {
   }
 }
 
-// Render library grid based on filters and search
+// Render library list based on filters and search
 function renderLibrary() {
-  const featured = BOOKS[0];
-  const featuredProgress = bookProgress[featured.id] || { chapterIndex: 0, pageIndex: 0, percent: 0 };
-  const featuredStat = featuredProgress.percent > 0 ? `${featuredProgress.percent}% read` : 'Start here';
-
-  if (document.getElementById('featured-book-card')) {
-    document.getElementById('featured-book-card').innerHTML = `
-      <img class="featured-cover" src="${featured.cover}" alt="${featured.title} cover" loading="eager">
-      <div class="featured-copy">
-        <span class="book-genre">${featured.genre}</span>
-        <h3>${featured.title}</h3>
-        <p class="book-author">by ${featured.author}</p>
-        <p>${featured.description}</p>
-        <div class="featured-meta">
-          <span>${featuredStat}</span>
-          <button class="read-btn" data-book-id="${featured.id}">
-            ${featuredProgress.percent > 0 ? 'Resume' : 'Read now'}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
-        </div>
-      </div>
-    `;
-  }
-
   el.libraryGrid.innerHTML = '';
-  
+
   const activeGenreFilter = document.querySelector('.filter-btn.active').getAttribute('data-genre').toLowerCase();
   const searchVal = el.searchBar.value.toLowerCase().trim();
-  
+
   const filteredBooks = BOOKS.filter(book => {
-    // Genre match
     const matchesGenre = activeGenreFilter === 'all' || book.genre.toLowerCase().includes(activeGenreFilter);
-    
-    // Search match
-    const matchesSearch = !searchVal || 
-      book.title.toLowerCase().includes(searchVal) || 
-      book.author.toLowerCase().includes(searchVal) || 
+    const matchesSearch = !searchVal ||
+      book.title.toLowerCase().includes(searchVal) ||
+      book.author.toLowerCase().includes(searchVal) ||
       book.description.toLowerCase().includes(searchVal);
-      
     return matchesGenre && matchesSearch;
   });
-  
+
   if (filteredBooks.length === 0) {
-    el.libraryGrid.innerHTML = `
-      <div style="grid-column: 1/-1; text-align: center; padding: 60px 0; color: var(--text-secondary); font-weight: 300;">
-        <p style="font-size: 1.2rem; margin-bottom: 8px;">No books found matching filters</p>
-        <p style="font-size: 0.9rem; color: var(--text-muted);">Try broadening your search term</p>
-      </div>
-    `;
+    el.libraryGrid.innerHTML = `<p class="book-list-empty">No titles found — try a different search or filter.</p>`;
     return;
   }
-  
+
   filteredBooks.forEach(book => {
     const progressData = bookProgress[book.id] || { chapterIndex: 0, pageIndex: 0, percent: 0 };
     const percentStr = progressData.percent > 0 ? `${progressData.percent}% read` : 'Not started';
-    
-    const card = document.createElement('div');
-    card.className = 'book-card';
-    card.innerHTML = `
-      <div class="book-cover-container">
-        <img class="book-cover" src="${book.cover}" alt="${book.title} Cover" loading="lazy">
-        <div class="book-progress-overlay">
-          <div class="book-progress-fill" style="width: ${progressData.percent}%"></div>
-        </div>
-      </div>
-      <div class="book-card-info">
-        <span class="book-genre">${book.genre}</span>
-        <h2 class="book-title">${book.title}</h2>
-        <p class="book-author">by ${book.author}</p>
-        <p class="book-desc">${book.description}</p>
-        <div class="book-card-footer">
-          <span class="progress-text">${percentStr}</span>
-          <button class="read-btn" data-book-id="${book.id}">
-            ${progressData.percent > 0 ? 'Resume' : 'Read Now'}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
-        </div>
+    const readLabel = progressData.percent > 0 ? 'Resume' : 'Read now';
+
+    const item = document.createElement('div');
+    item.className = 'book-list-item';
+    item.innerHTML = `
+      <p class="book-list-genre">${book.genre}</p>
+      <h3 class="book-list-title">${book.title}</h3>
+      <p class="book-list-meta">by ${book.author} &middot; ${book.year}</p>
+      <p class="book-list-desc">${book.description}</p>
+      <div class="book-list-footer">
+        <span class="progress-text">${percentStr}</span>
+        <button class="read-btn" data-book-id="${book.id}">
+          ${readLabel}
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
       </div>
     `;
-    
-    // Clicking anywhere on the card (except footer actions or descriptions maybe) opens reader
-    card.addEventListener('click', () => {
-      openReader(book.id);
-    });
-    
-    el.libraryGrid.appendChild(card);
-  });
 
-  if (filteredBooks.length > 1) {
-    const shelfHeading = document.createElement('div');
-    shelfHeading.className = 'shelf-note';
-    shelfHeading.textContent = `Showing ${filteredBooks.length} books`;
-    el.libraryGrid.prepend(shelfHeading);
-  }
+    item.addEventListener('click', () => openReader(book.id));
+    el.libraryGrid.appendChild(item);
+  });
 }
 
 // Open Reader view
