@@ -215,28 +215,25 @@ function renderLibrary() {
   });
 
   if (filteredBooks.length === 0) {
-    el.libraryGrid.innerHTML = `<p class="book-list-empty">No titles found — try a different search or filter.</p>`;
+    el.libraryGrid.innerHTML = `<p class="books-grid-empty">No titles found &mdash; try a different search or filter.</p>`;
     return;
   }
 
   filteredBooks.forEach(book => {
     const progressData = bookProgress[book.id] || { chapterIndex: 0, pageIndex: 0, percent: 0 };
     const percentStr = progressData.percent > 0 ? `${progressData.percent}% read` : 'Not started';
-    const readLabel = progressData.percent > 0 ? 'Resume' : 'Read now';
+    const readLabel = progressData.percent > 0 ? 'Resume &rarr;' : 'Read now &rarr;';
 
     const item = document.createElement('div');
-    item.className = 'book-list-item';
+    item.className = 'book-card';
     item.innerHTML = `
-      <p class="book-list-genre">${book.genre}</p>
-      <h3 class="book-list-title">${book.title}</h3>
-      <p class="book-list-meta">by ${book.author} &middot; ${book.year}</p>
-      <p class="book-list-desc">${book.description}</p>
-      <div class="book-list-footer">
+      <p class="book-card-genre">${book.genre}</p>
+      <h3 class="book-card-title">${book.title}</h3>
+      <p class="book-card-meta">by ${book.author} &middot; ${book.year}</p>
+      <p class="book-card-desc">${book.description}</p>
+      <div class="book-card-footer">
         <span class="progress-text">${percentStr}</span>
-        <button class="read-btn" data-book-id="${book.id}">
-          ${readLabel}
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>
+        <button class="read-btn" data-book-id="${book.id}">${readLabel}</button>
       </div>
     `;
 
